@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.2.0 (2026-10-23)
+
+- **Breaking:** the package is renamed from `@xnicklaj/knotwork` to `@nicklaj/knotwork` (npm account `nicklaj`). Change the dependency name and every import. The code is otherwise identical to 0.1.0, which stays as released under its old name.
+
 ## 0.1.0 (2026-10-23)
 
 First extraction from the Achievement Injector editor.

@@ -1,6 +1,6 @@
 {
-  "name": "@xnicklaj/knotwork",
-  "version": "0.1.0",
+  "name": "@nicklaj/knotwork",
+  "version": "0.2.0",
   "description": "Generic node-graph foundations for React Flow editors: indexes, composable connection rules, undo history, spawn menu, clipboard, canvas navigation.",
   "type": "module",
   "repository": "github:xNicklaj/Knotwork-Graph-Kit",

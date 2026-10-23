@@ -8,7 +8,7 @@ context-sensitive spawn menu, copy/paste, and one canvas navigation scheme for m
 The kit knows nothing about your nodes. You supply the pin kinds, the node definitions, the rules and the validation.
 
 **License: not decided yet, so there is no LICENSE file. Do not reuse this code until one is added.**
-The package name `@xnicklaj/knotwork` is a placeholder; it is **not** published to npm.
+The package is named `@nicklaj/knotwork` (the npm account is `nicklaj`; the GitHub repo is `xNicklaj/Knotwork-Graph-Kit`). It is **not** published to npm yet.
 
 ## Install
 
@@ -16,13 +16,13 @@ The package name `@xnicklaj/knotwork` is a placeholder; it is **not** published 
 `build/<main sha>`; releases are tags on such commits. Depend on a tag, or on a build commit's SHA:
 
 ```json
-"@xnicklaj/knotwork": "github:xNicklaj/Knotwork-Graph-Kit#v0.1.0"
+"@nicklaj/knotwork": "github:xNicklaj/Knotwork-Graph-Kit#v0.2.0"
 ```
 
 Nothing builds on install. Peer dependencies: `react`, `react-dom`, `@xyflow/react` ^12.12, `zustand` ^5, `zundo` ^2.3.
 
 ```ts
-import "@xnicklaj/knotwork/knotwork.css"; // defaults for the --kw-* variables
+import "@nicklaj/knotwork/knotwork.css"; // defaults for the --kw-* variables
 ```
 
 Styling is CSS variables only, namespaced `--kw-*` (`--kw-bg-panel`, `--kw-bg-app`, `--kw-border`, `--kw-text`, `--kw-text-dim`,
@@ -64,7 +64,7 @@ Known limit: `spawnOptions` offers only pins of the same kind as the dragged pin
 Connection rules: pick what your editor needs.
 
 ```ts
-import { composeRules, noLoop, noSelfLink, pinsMatch, pinUsedOnce, onePerChain } from "@xnicklaj/knotwork";
+import { composeRules, noLoop, noSelfLink, pinsMatch, pinUsedOnce, onePerChain } from "@nicklaj/knotwork";
 
 const refuse = composeRules<MyNode>(
   pinsMatch((from, to) => from === to || (from === "Number" && to === "String")),
