@@ -1,0 +1,29 @@
+# main holds TypeScript source only. Every push to main also gets a build commit: the same tree plus dist/, on the branch
+# build/<main sha>. Apps pin that commit's SHA (github:xNicklaj/Knotwork-Graph-Kit#<sha>), so nothing builds on install.
+# A tag is made from a build commit only once an app has been checked against it (release.yml).
+name: Build ref
+on:
+  push:
+    branches: [main]
+permissions:
+  contents: write
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 22, cache: npm }
+      - run: npm ci
+      - run: npm run typecheck
+      - run: npm test
+      - run: npm run build
+      - name: Commit dist/ on build/${{ github.sha }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git switch -c build-tmp
+          git add -f dist
+          git commit -m "build: dist for ${GITHUB_SHA}"
+          echo "Build commit: $(git rev-parse HEAD)" >> "$GITHUB_STEP_SUMMARY"
+          git push origin HEAD:refs/heads/build/${GITHUB_SHA}

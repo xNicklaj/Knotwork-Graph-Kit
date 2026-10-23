@@ -1,0 +1,23 @@
+# Push a branch release/vX.Y.Z that points at a build commit (see build-ref.yml) which an app has been checked against.
+# This tags that exact commit vX.Y.Z, so a tag always means "known to work" and always contains dist/.
+name: Release
+on:
+  push:
+    branches: ["release/v*"]
+permissions:
+  contents: write
+jobs:
+  tag:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with: { fetch-depth: 0 }
+      - name: Check the commit is a build commit, then tag it
+        run: |
+          version="${GITHUB_REF_NAME#release/}"          # vX.Y.Z
+          test -f dist/index.js && test -f dist/index.d.ts && test -f dist/knotwork.css || { echo "no dist/ in this commit"; exit 1; }
+          git branch -r --contains "${GITHUB_SHA}" | grep -q "origin/build/" || { echo "not a build/* commit"; exit 1; }
+          pkg="v$(node -p "require('./package.json').version")"
+          test "$pkg" = "$version" || { echo "package.json is $pkg, branch says $version"; exit 1; }
+          git tag -a "$version" -m "$version" "${GITHUB_SHA}"
+          git push origin "$version"
