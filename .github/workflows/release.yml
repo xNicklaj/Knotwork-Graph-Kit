@@ -16,8 +16,11 @@ jobs:
         run: |
           version="${GITHUB_REF_NAME#release/}"          # vX.Y.Z
           test -f dist/index.js && test -f dist/index.d.ts && test -f dist/knotwork.css || { echo "no dist/ in this commit"; exit 1; }
-          git branch -r --contains "${GITHUB_SHA}" | grep -q "origin/build/" || { echo "not a build/* commit"; exit 1; }
+          # A build commit is the one build-ref.yml made: its message says so (every main commit is an ancestor of a build/* branch, so ancestry alone proves nothing).
+          case "$(git log -1 --format=%s)" in "build: dist for "*) ;; *) echo "not a build commit"; exit 1 ;; esac
           pkg="v$(node -p "require('./package.json').version")"
           test "$pkg" = "$version" || { echo "package.json is $pkg, branch says $version"; exit 1; }
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git tag -a "$version" -m "$version" "${GITHUB_SHA}"
           git push origin "$version"
