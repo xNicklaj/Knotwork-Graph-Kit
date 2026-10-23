@@ -1,3 +1,5 @@
+// This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0. If a copy of the MPL was not distributed with this file, You can obtain one at https://mozilla.org/MPL/2.0/.
+
 import { BaseEdge, getBezierPath, type EdgeProps } from "@xyflow/react";
 
 /** The selection colour of a node (--kw-select-soft is its glow), wide enough to read around the 2px line. */

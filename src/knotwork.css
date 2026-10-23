@@ -1,3 +1,5 @@
+/* This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0. If a copy of the MPL was not distributed with this file, You can obtain one at https://mozilla.org/MPL/2.0/. */
+
 /* Knotwork defaults. An app maps its own variables onto these, e.g. `--kw-select: var(--select)`. */
 :root {
   --kw-select: #6ea8fe;

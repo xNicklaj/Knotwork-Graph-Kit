@@ -1,0 +1,21 @@
+# Every commit of a pull request needs "Signed-off-by: Name <email>" (git commit -s). Merge commits are exempt.
+name: DCO
+on:
+  pull_request:
+jobs:
+  signoff:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with: { fetch-depth: 0 }
+      - name: Check Signed-off-by
+        run: |
+          bad=0
+          for sha in $(git rev-list --no-merges "${{ github.event.pull_request.base.sha }}..${{ github.event.pull_request.head.sha }}"); do
+            msg="$(git show -s --format=%B "$sha")"
+            if ! grep -qiE '^Signed-off-by: .+ <.+@.+>$' <<<"$msg"; then
+              echo "::error::commit $sha has no Signed-off-by line (use git commit -s)"
+              bad=1
+            fi
+          done
+          exit $bad

@@ -7,7 +7,6 @@ context-sensitive spawn menu, copy/paste, and one canvas navigation scheme for m
 
 The kit knows nothing about your nodes. You supply the pin kinds, the node definitions, the rules and the validation.
 
-**License: not decided yet, so there is no LICENSE file. Do not reuse this code until one is added.**
 The package is named `@nicklaj/knotwork` (the npm account is `nicklaj`; the GitHub repo is `xNicklaj/Knotwork-Graph-Kit`). It is **not** published to npm yet.
 
 ## Install
@@ -93,6 +92,14 @@ Canvas:
 ```tsx
 <ReactFlow {...NAVIGATION_PROPS} /* nodes, edges, handlers */ />
 ```
+
+## License
+
+[MPL-2.0](LICENSE) (Mozilla Public License 2.0). Apps that use Knotwork may be under any license, open or closed. Changes to Knotwork's own files must be shared under MPL-2.0; your own files that merely use the kit are not affected. Every source file carries the MPL notice.
+
+## Contributing
+
+See [CONTRIBUTING.md](CONTRIBUTING.md): contributions need a DCO sign-off (`git commit -s`).
 
 ## Development
 

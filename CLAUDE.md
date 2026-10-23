@@ -13,7 +13,7 @@ Generic node-graph foundations for React Flow editors (package `@nicklaj/knotwor
 - **Validation has one source.** `createValidation` runs `compute` once, debounced, and everything reads its store. `byNode` is `error|warning`, then `|`, then messages joined by a newline; selectors return strings so nodes re-render only when their own text changes. Do not change the encoding without a major version.
 - **Canvas navigation:** the wheel listener runs in the capture phase and must ignore `.nowheel`, `.react-flow__minimap`, `.react-flow__controls`; `useSpaceMenu.cancel()` must be called on `onMoveStart` so Space + drag pans without opening a menu. The classifier is a heuristic: a free-spinning mouse wheel reads as a touchpad.
 - **Peer dependencies only** for `react`, `react-dom`, `@xyflow/react`, `zustand`, `zundo`. A second copy of `@xyflow/react` breaks `useReactFlow` (separate context). Match the apps' major versions.
-- **No LICENSE file yet** (not decided). Do not add one, and do not publish to npm, until the owner decides the licence. The npm scope is `@nicklaj`; v0.1.0 was tagged under the old name `@xnicklaj/knotwork` and is kept as it is.
+- **License is MPL-2.0.** `LICENSE` holds the unmodified text; every file in `src/` and `scripts/` starts with the MPL Exhibit A header (copy it from any existing file into new ones). Contributions need a DCO sign-off (`git commit -s`, checked in CI on pull requests). Do not publish to npm without the owner saying so. The npm scope is `@nicklaj`; v0.1.0 was tagged under the old name `@xnicklaj/knotwork` and is kept as it is.
 
 ## Releases
 

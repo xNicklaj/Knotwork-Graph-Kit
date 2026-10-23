@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.2.1 (2026-10-23)
+
+- License: the kit is now under the Mozilla Public License 2.0 (`LICENSE`, `"license": "MPL-2.0"`, the MPL notice in every source file). Earlier tags carried no license.
+- Contributions need a DCO sign-off (`CONTRIBUTING.md`); a CI check enforces it on pull requests.
+- No code changes.
+
 ## 0.2.0 (2026-10-23)
 
 - **Breaking:** the package is renamed from `@xnicklaj/knotwork` to `@nicklaj/knotwork` (npm account `nicklaj`). Change the dependency name and every import. The code is otherwise identical to 0.1.0, which stays as released under its old name.
