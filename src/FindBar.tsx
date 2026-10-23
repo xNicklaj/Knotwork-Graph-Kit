@@ -7,14 +7,14 @@ export const FIND_LABEL = "Find nodes";
 const text = (v: unknown) => (typeof v === "string" ? v : JSON.stringify(v));
 
 /** Nodes whose field values (or title) contain `q`, each with a "key: value" snippet (empty for a title-only match). Stops at `max`; `hidden` ids are skipped. */
-export function findNodes<N extends Node>(nodes: N[], hidden: Set<string> | undefined, q: string, titleOf: (n: N) => string, max = MAX): { node: N; snippet: string }[] {
+export function findNodes<N extends Node>(nodes: N[], hidden: Set<string> | undefined, q: string, titleOf: (n: N) => string, max = MAX, valuesOf?: (n: N) => Record<string, unknown> | undefined): { node: N; snippet: string }[] {
   const needle = q.trim().toLowerCase();
   if (!needle) return [];
   const out: { node: N; snippet: string }[] = [];
   for (const node of nodes) {
     if (hidden?.has(node.id)) continue; // inside a collapsed group: nothing to show
     let snippet: string | null = null;
-    for (const [k, v] of Object.entries((node.data as { values?: Record<string, unknown> }).values ?? {})) {
+    for (const [k, v] of Object.entries(valuesOf?.(node) ?? {})) {
       const s = v == null ? "" : text(v);
       if (s.toLowerCase().includes(needle)) {
         snippet = `${k}: ${s}`;
@@ -28,7 +28,7 @@ export function findNodes<N extends Node>(nodes: N[], hidden: Set<string> | unde
 }
 
 /** Ctrl+F on the graph: find existing nodes by title or field value; Enter or a click picks the node (`onPick`) and zooms to it. */
-export function FindBar<N extends Node>({ nodes, hidden, titleOf, accent, onPick, onClose }: { nodes: N[]; hidden?: Set<string>; titleOf: (n: N) => string; accent?: (n: N) => string | undefined; onPick: (id: string) => void; onClose: () => void }) {
+export function FindBar<N extends Node>({ nodes, hidden, titleOf, valuesOf, accent, onPick, onClose }: { nodes: N[]; hidden?: Set<string>; titleOf: (n: N) => string; valuesOf?: (n: N) => Record<string, unknown> | undefined; accent?: (n: N) => string | undefined; onPick: (id: string) => void; onClose: () => void }) {
   const [q, setQ] = useState("");
   const [active, setActive] = useState(0);
   const [shift, setShift] = useState({ x: 0, y: 0 });

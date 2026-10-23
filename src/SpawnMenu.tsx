@@ -6,7 +6,7 @@ const WIDTH = 300;
 const HEIGHT = 380;
 
 /** Searchable node menu at the cursor. Arrow keys move, Enter creates, Escape closes, a pointer-down outside closes. */
-export function SpawnMenu<D extends NodeDef>({ x, y, options, categories, onPick, onClose, title }: { x: number; y: number; title: string; options: SpawnOption<D>[]; categories: { id: string; label: string }[]; onPick: (o: SpawnOption<D>) => void; onClose: () => void }) {
+export function SpawnMenu<D extends NodeDef>({ x, y, options, categories, accent, onPick, onClose, title }: { x: number; y: number; title: string; options: SpawnOption<D>[]; categories: { id: string; label: string }[]; accent?: (def: D) => string | undefined; onPick: (o: SpawnOption<D>) => void; onClose: () => void }) {
   const [q, setQ] = useState("");
   const [active, setActive] = useState(0);
   const list = useRef<HTMLUListElement>(null);
@@ -48,7 +48,7 @@ export function SpawnMenu<D extends NodeDef>({ x, y, options, categories, onPick
             <li key={`${o.def.kind}:${o.pin ?? ""}`} role="presentation">
               {header && <div className="kw-spawn-cat">{header}</div>}
               <button role="option" aria-selected={i === active} data-active={i === active} className="kw-spawn-item" onMouseMove={() => setActive(i)} onClick={() => onPick(o)}>
-                <span className="kw-spawn-swatch" style={{ background: `var(--kw-cat-${cat})` }} />
+                <span className="kw-spawn-swatch" style={{ background: accent?.(o.def) }} />
                 <span className="kw-spawn-label">{o.label}</span>
               </button>
             </li>

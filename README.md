@@ -26,7 +26,7 @@ import "@xnicklaj/knotwork/knotwork.css"; // defaults for the --kw-* variables
 ```
 
 Styling is CSS variables only, namespaced `--kw-*` (`--kw-bg-panel`, `--kw-bg-app`, `--kw-border`, `--kw-text`, `--kw-text-dim`,
-`--kw-select`, `--kw-select-soft`, `--kw-cat-<category id>`). Map your own variables onto them, after the import:
+`--kw-select`, `--kw-select-soft`); category colours are yours: pass `accent` to `SpawnMenu` and `FindBar`. Map your own variables onto them, after the import:
 `:root { --kw-select: var(--select); }`. There is no Tailwind dependency.
 
 ## Pin grammar
@@ -49,13 +49,15 @@ Handle ids are `<kind>-in`, `<kind>-out` or `<kind>:<field>` (a typed input for 
 | `graphChanged(a, b)` | Did anything validation reads change? Ignores selection and measuring. |
 | `PinDef`, `NodeDef` | The minimal definition shape the spawn menu reads; extend it with your own fields. |
 | `spawnOptions({ defs, from, order, refuse })`, `matchesSpawn`, `SPAWN_NEW` | Node types (and pins) that can take a dropped wire. |
-| `SpawnMenu` | Searchable menu at the cursor. |
+| `SpawnMenu` | Searchable menu at the cursor; `accent(def)` colours each row's swatch. |
 | `createClipboard({ store, edge, exclude, copy, paste })` | Copy, paste, duplicate; one undo step. |
 | `NAVIGATION_PROPS`, `MIN_ZOOM`, `MAX_ZOOM` | The `<ReactFlow>` props for the navigation scheme. |
-| `useWheelNavigation(ref)`, `useSpaceMenu(ref, open)`, `isTyping(e)` | Wheel pan/zoom, Space-to-open-menu. Call inside the React Flow provider. |
+| `useWheelNavigation(ref)`, `useSpaceMenu(ref, open)`, `isTyping(e)` | Wheel pan/zoom (inside the React Flow provider) and Space-to-open-menu. |
 | `createWheelClassifier`, `wheelPixels`, `zoomFactor` | The mouse-or-touchpad heuristic. |
-| `FindBar`, `findNodes`, `FIND_LABEL` | Ctrl+F node search. |
+| `FindBar`, `findNodes`, `FIND_LABEL` | Ctrl+F node search by title and, via `valuesOf(node)`, field values. |
 | `HaloEdge` | Bezier edge with a selection halo. |
+
+Known limit: `spawnOptions` offers only pins of the same kind as the dragged pin, even if your `pinsMatch` accepts conversions (e.g. Number to String); add a `compatible` option when an app needs it.
 
 ## Examples
 

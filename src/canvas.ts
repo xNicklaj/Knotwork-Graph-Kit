@@ -8,7 +8,7 @@ export const MAX_ZOOM = 2;
 /** ReactFlow props for the navigation model; spread them on <ReactFlow>. */
 export const NAVIGATION_PROPS = {
   // Only nodes and wires in view are mounted, so a big group costs what is on screen. A node is always mounted until it has been
-  // measured once (so a freshly opened file mounts everything one time), and undo keeps the measured sizes (store.test.ts).
+  // measured once (so a freshly opened file mounts everything one time), and undo keeps the measured sizes.
   onlyRenderVisibleElements: true,
   minZoom: MIN_ZOOM,
   maxZoom: MAX_ZOOM,

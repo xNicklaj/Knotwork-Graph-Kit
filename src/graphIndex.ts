@@ -30,7 +30,7 @@ const wires = (edges: Edge[]): Wires =>
   });
 
 const NONE: Edge[] = [];
-/** Wires ending at node `id`, in the order they were made (the order conditions are written to the file). */
+/** Wires ending at node `id`, in the order they were made (the order the app made them). */
 export const incoming = (edges: Edge[], id: string): Edge[] => wires(edges).into.get(id) ?? NONE;
 /** Wires starting at node `id`. */
 export const outgoing = (edges: Edge[], id: string): Edge[] => wires(edges).outOf.get(id) ?? NONE;
